@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate":"payload generate:types"
+    "generate":"payload generate:types",
+    "fresh": "payload migrate:fresh"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
