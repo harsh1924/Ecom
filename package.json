@@ -6,9 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "generate":"payload generate:types",
-    "fresh": "payload migrate:fresh"
+    "generate": "payload generate:types",
+    "fresh": "payload migrate:fresh",
+    "seed": "bun run src/seed.ts",
+    "reset": "bun run fresh && bun run seed",
+    "lintfix": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint": "bun run lintfix && bun run lint:fix",
+    "esfix": "bunx eslint . --ext .js,.ts,.jsx,.tsx --fix"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
@@ -47,6 +52,7 @@
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
+    "eslint-plugin-import": "^2.31.0",
     "graphql": "^16.8.1",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.488.0",
@@ -72,7 +78,7 @@
     "@types/react-dom": "^19",
     "@tailwindcss/postcss": "^4",
     "tailwindcss": "^4",
-    "eslint": "^9",
+    "eslint": "^9.25.0",
     "eslint-config-next": "15.2.4",
     "@eslint/eslintrc": "^3"
   }
