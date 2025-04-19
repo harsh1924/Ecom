@@ -9,7 +9,7 @@
     "generate": "payload generate:types",
     "fresh": "payload migrate:fresh",
     "seed": "bun run src/seed.ts",
-    "reset": "bun run fresh && bun run fresh",
+    "reset": "bun run fresh && bun run seed",
     "lintfix": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint": "bun run lintfix && bun run lint:fix",
