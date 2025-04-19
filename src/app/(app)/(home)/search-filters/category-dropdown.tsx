@@ -5,13 +5,13 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { CategoriesGetManyOutput } from "@/modules/types";
 
 import { useDropdownPsoition } from "./use-dropdown-position";
 import { SubcategoryMenu } from "./subcategory-menu";
-import { CustomCategory } from "../types";
 
 interface Props {
-    category: CustomCategory;
+    category: CategoriesGetManyOutput[1];
     isActive?: boolean;
     isNavigationHover?: boolean;
 }
@@ -34,18 +34,12 @@ export const CategoryDropdown = ({
 
     const onMouseLeave = () => setIsOpen(false);
 
-    // const toggleDropdown = () => {
-    //     if (category.subcategories?.docs?.length)
-    //         setIsOpen(!isOpen);
-    // }
-
     return (
         <div
             className="relative"
             ref={dropdownRef}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
-        // onClick={toggleDropdown}
         >
             <div className="relative">
                 <Button

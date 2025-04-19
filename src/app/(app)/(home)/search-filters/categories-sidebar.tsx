@@ -3,27 +3,31 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRightIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { useTRPC } from "@/trpc/client";
+import { CategoriesGetManyOutput } from "@/modules/types";
 
-import { CustomCategory } from "../types";
 
 interface Props {
     open: boolean;
     onOpenChange: (open: boolean) => void;
-    data: CustomCategory[]; // TODO: Remove This Later
 }
 
 export const CategoriesSidebar = ({
     onOpenChange,
     open,
-    data
 }: Props) => {
+
+    const trpc = useTRPC();
+    const { data } = useQuery(trpc.categories.getMany.queryOptions());
+
     const router = useRouter();
 
-    const [parentCategories, setParentCategories] = useState<CustomCategory[] | null>(null);
-    const [selectedCategory, setSelectedCategory] = useState<CustomCategory | null>(null);
+    const [parentCategories, setParentCategories] = useState<CategoriesGetManyOutput | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<CategoriesGetManyOutput[1] | null>(null);
 
     const handleOpenChange = (open: boolean) => {
         setSelectedCategory(null);
@@ -34,9 +38,9 @@ export const CategoriesSidebar = ({
     // If we have parent category , show those, otherwise show root categories
     const currentCategories = parentCategories ?? data ?? [];
 
-    const handleCategoryClick = (category: CustomCategory) => {
+    const handleCategoryClick = (category: CategoriesGetManyOutput[1]) => {
         if (category.subcategories && category.subcategories.length > 0) {
-            setParentCategories(category.subcategories as CustomCategory[]);
+            setParentCategories(category.subcategories as CategoriesGetManyOutput);
             setSelectedCategory(category);
         } else {
             // This is a leaf category (no subcategories)
